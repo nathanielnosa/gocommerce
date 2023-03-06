@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+  My Cart
+{% endblock title %}
+
+{% block content %}
+  <section id="mycart" class="my-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 mx-auto">
+                <div class="table-responsive">
+                    <h4 class="display-4 text-center">My Orders</h4>
+                    <hr>
+                    <table class="table table-border">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Remove</th>
+                                <th>image</th>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if cart %}
+                                {% for item in cart.cartproduct_set.all %}
+                                  <tr>
+                                      <td>{{forloop.counter}}</td>
+                                      <td> <a href="{%url 'manageCart' item.id %}?action=rmv" class="link-danger"><i class="bi bi-trash3-fill"></i></a></td>
+                                    <td><img width="70" src="{{item.product.image.url}}" class="img-thumbnail" alt="{{item.product.title}}"></td>
+                                    <td>{{item.product.title}}</td>
+                                    <td>&#8358; {{item.product.price |intcomma}}</td>
+                                    <td class="text-center">
+                                        <a href="{%url 'manageCart' item.id %}?action=dcr" class="link-dark"><i class="bi bi-caret-down-fill"></i></a>    
+                                        {{item.quantity}}
+                                        <a href="{%url 'manageCart' item.id %}?action=inc" class="link-dark"><i class="bi bi-caret-up-fill"></i></a>    
+                                    </td>
+                                    <td>&#8358; {{item.subtotal | intcomma}}</td>
+                                  </tr>
+                                {% endfor %}
+                                <tr>
+                                    <td><h3>Total</h3></td>
+                                    <td colspan="5" class="text-end"><h3>&#8358; {{cart.total |intcomma}}</h3></td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="6">
+                                        <a href="{% url 'products' %}" class="btn btn-info">Continue Shopping</a>
+                                        <a href="{% url 'checkout' %}" class="btn btn-success">Proceed To Checkout</a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                              <p class="lead p-3">No Available product</p>
+                            {% endif %}
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+{% endblock content %}

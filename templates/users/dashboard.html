@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+User Dashboard
+{% endblock title %}
+
+<!-- body -->
+{% block content %}
+
+<div class="container my-5">
+    <div class="row">
+        {% include "users/sidepanel.html" %}
+        <div class="col-md-9 ">
+           <h3 class="text-center"> <span><a href="{% url 'logout' %}" class="btn btn-danger mx-4">Logout</a></span></h3>
+        </div>
+    </div>
+</div>
+  
+{% endblock content %}

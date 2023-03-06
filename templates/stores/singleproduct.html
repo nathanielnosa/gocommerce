@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block title %}
+Product Page
+{% endblock title %}
+
+<!-- body -->
+{% block content %}
+
+<div class="container my-5">
+    <div class="row">
+        {% if product %}
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{{product.image.url}}" alt="{{product.title}}">
+            </div>
+        </div>
+        <div class="col-md-8">
+           <div class="card">
+            <div class="card-header"><h5 class="display-5">{{product.title}}</h5></div>
+            <div class="card-body">
+                <p class="lead">{{product.description}}</p>
+
+                <h4>&#8358; {{product.price|intcomma}}</h4>
+
+                <div class="d-grid">
+                    <a href="{% url 'add_to_cart' product.id %}" class="btn btn-success">Add to cart</a>
+                </div>
+            </div>
+           </div>
+        </div>
+        {% else %}
+          <p class="lead">No Product of this item selected match</p>
+        {% endif %}
+        
+    </div>
+</div>
+  
+{% endblock content %}

@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Welcome To GoCommerce{% endblock title %}
+
+<!-- main body -->
+{% block content %}
+
+  <div class="container-fluid p-0">
+      <!-- Start Banner Hero -->
+      <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="true">
+        <ol class="carousel-indicators">
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+                    {% if banner %}
+                    {% for item in banner %}
+                        <div class="carousel-item active " data-bs-interval="10000">
+                            <div class="container">
+                                <div class="row p-5">
+                                    <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                                        <img src="{{item.image.url}}" alt="" class="d-block w-100">
+                                    </div>
+                                    
+                                    <div class="col-md-4 col-lg-6 mb-0 d-flex align-items-center">
+                                        <div class="text-align-left align-self-center">
+                                            <h1 class="h1 text-success"><b>GoTech</b> eCommerce</h1>
+                                            <h3 class="h2">Tiny and Perfect eCommerce Template</h3> 
+                                            <p class="lead">
+                                                GoTech Shop is an eCommerce HTML5 CSS template with latest version of Bootstrap 5 (beta 1). 
+                                                This template is 100% free provided by GoTech website. 
+                                                Image credits go to Freepik Stories,Unsplash and Icons 8 .
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% else %}
+                        <p class="lead p-4 my-3">No Image Yet</p>
+                    {% endif %}
+        </div>
+        <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="prev">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+        <a class="carousel-control-next text-decoration-none w-auto pe-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="next">
+            <i class="fas fa-chevron-right"></i>
+        </a>
+    </div>
+    <!-- End Banner Hero -->
+
+  </div>
+
+  <!-- category -->
+  <section id="category">
+    <div class="container">
+        <h4 class="display-4 my-3 text-center">New Category</h4>
+        <div class="row">
+            {% if categorys %}
+                {% for category in categorys %}
+                <div class="col-md-4">
+                    <div class="cat-circle"></div>
+                    <h4 class="h3 text-center">{{category.title}}</h4>
+                </div>
+                {% endfor %}
+            {% else %}
+              <p class="lead p-3">No Category added by the admin yet</p>
+            {% endif %}
+            
+            
+        </div>
+    </div>
+  </section>
+
+  <!-- products -->
+  <section id="product">
+    <div class="container">
+        <div class="">
+            <h4 class="display-4 my-3 text-center">Latest Products</h4>
+            <a href="{% url 'products' %}" class="btn btn-outline-dark text-end">View All Products</a>
+        </div>
+        <div class="row">
+            {% if latestproducts %}
+                {% for product in latestproducts %}
+                <div class="col-md-3">
+                    <div class="pro-circle">
+                        <img src="{{product.image.url}}" alt="{{product.title}}" class="img-fluid">
+                    </div>
+                    <h4 class="h3 text-center">{{product.title}}</h4>
+                </div>
+                {% endfor %}
+            {% else %}
+              <p class="lead p-3">No Category added by the admin yet</p>
+            {% endif %}
+            
+            
+        </div>
+    </div>
+  </section>
+
+    
+
+
+
+{% endblock content %}

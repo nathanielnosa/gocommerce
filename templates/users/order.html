@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+User Dashboard
+{% endblock title %}
+
+<!-- body -->
+{% block content %}
+
+<div class="container my-5">
+    <div class="row">
+        {% include "users/sidepanel.html" %}
+        <div class="col-md-9 ">
+          <div class="table-responsive">
+            <table class="table table-border">
+                <thead>
+                    <tr>
+                        <th>SN</th>
+                        <th>Order Id</th>
+                        <th>Amount</th>
+                        <th>Ordered Date</th>
+                        <th>Order Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if orders %}
+                      {% for order in orders %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>#GOCOM-{{order.id}}</td>
+                            <td>&#8358; {{order.amount | intcomma }}</td>
+                            <td>{{order.create_at| timesince}} ago</td>
+                            <td>{{order.order_status}}</td>
+                        </tr>
+                      {% endfor %}
+                    {% else %}
+                        <tr>
+                            <p class="lead bg-danger p-3">No Order Yet</p>
+                        </tr>
+                    {% endif %}
+                    
+                </tbody>
+            </table>
+          </div>
+        </div>
+    </div>
+</div>
+  
+{% endblock content %}

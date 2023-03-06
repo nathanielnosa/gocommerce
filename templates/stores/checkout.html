@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %}GoCommerce::Checkout-Page{% endblock title %}
+{% block content %}
+  
+<section id="checkout" class="my-5">
+    <div class="container my-3">
+        <div class="row">
+            <!-- checkout info -->
+            <div class="col-md-6">
+                <div class="card p-4">
+                    <h4>Item in the cart</h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Quantity</th>
+                                <th>Rate</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if cart %}
+                                {% for item in cart.cartproduct_set.all  %}
+                                  <tr>
+                                    <td>{{item.product.title}}</td>
+                                    <td>{{item.quantity}}</td>
+                                    <td>&#8358; {{item.product.price |intcomma}}</td>
+                                    <td>&#8358; {{item.subtotal |intcomma}}</td>
+                                  </tr>
+                                {% endfor %}
+                                <tr>
+                                    <td colspan="4"><h2>Total: &#8358 {{cart.total |intcomma}}</h2></td>
+                                </tr>
+                            {% else %}
+                              <p class="bg-danger text-white p-3">No Item to review</p>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- checkout form -->
+            <div class="col-md-6">
+                <div class="card p-4">
+                    <h4>Checkout Form</h4>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <div class="d-grid">
+                            <button class="btn btn-dark">Checkout</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
+
+
+
